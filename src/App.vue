@@ -8,12 +8,7 @@ import { ref } from 'vue'
 import { computed } from '@vue/reactivity'
 import { useToast } from 'vue-toastification'
 
-const transactions = ref([
-  { id: 1, text: "Paycheck", amount: 100 },
-  { id: 2, text: "Lunch", amount: -7 },
-  { id: 3, text: "Pharmacy", amount: -5 },
-  { id: 4, text: "Shopping", amount: -23 }
-]);
+var transactions = ref([]);
 
 const balance = computed(() => {
   return transactions.value.reduce((acc, transaction) => {
@@ -49,6 +44,12 @@ const generateUniqueId = () => {
   return Math.floor(Math.random() *  1000000);
 }
 
+const handleOnDeleteTransaction = (id) => {
+    transactions.value = transactions.value.filter(
+      (transaction) => transaction.id != id
+    );
+}
+
 </script>
 
 <template>
@@ -57,7 +58,7 @@ const generateUniqueId = () => {
     <div class="container">
       <Balance :balance="+balance" />
       <IncomeExpense :income="+income" :expense="+expense"/>
-      <TransactionList :transactions="transactions" />
+      <TransactionList @deleteTransaction="handleOnDeleteTransaction" :transactions="transactions" />
       <AddTransaction  @transactionSubmitted="handleTransactionSubmitted"/>
     </div>
   </div>

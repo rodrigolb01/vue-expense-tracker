@@ -16,8 +16,7 @@
 </template>
 
 <script setup>
-import { parse } from '@vue/compiler-dom';
-import { defineProps } from 'vue';
+
 import { ref } from 'vue';
 import { useToast } from 'vue-toastification';
 
